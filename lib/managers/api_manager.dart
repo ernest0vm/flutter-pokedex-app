@@ -24,8 +24,12 @@ class ApiManager {
     requestTimeout: const Duration(seconds: 30),
   );
 
-  Future<ApiResponse> getPokemonList(int limit, int offset) async {
-    StreamManager.instance.appIsBusy(true);
+  Future<ApiResponse> getPokemonList({
+    String limit = '25',
+    String offset = '0',
+    bool showLoader = false,
+  }) async {
+    StreamManager.instance.appIsBusy(showLoader);
     try {
       ApiResponse apiResponse =
           await APIResponseBuilder.fromResponseData(await client.get(
@@ -50,8 +54,9 @@ class ApiManager {
     }
   }
 
-  Future<ApiResponse> getPokemon(String pokeId) async {
-    StreamManager.instance.appIsBusy(true);
+  Future<ApiResponse> getPokemon(String pokeId,
+      {bool showLoader = false}) async {
+    StreamManager.instance.appIsBusy(showLoader);
     try {
       ApiResponse apiResponse =
           await APIResponseBuilder.fromResponseData(await client.get(
@@ -107,16 +112,16 @@ class LoggingInterceptors extends InterceptorContract {
       data.headers[HttpHeaders.contentTypeHeader] = 'application/json';
 
       log("==> ${data.method.toString().replaceAll("Method.", "").toUpperCase()} ${(data.url)}");
-      log('Headers:');
-      data.headers.forEach((k, v) => log('$k: $v'));
-      if (data.params.isNotEmpty) {
-        log('Params:');
-        data.params.forEach((k, v) => log('$k: $v'));
-      }
-      if (data.body != null && data.body.isNotEmpty) {
-        log('Body: ${data.body}');
-      }
-      log("==> END ${data.method.toString().replaceAll("Method.", "").toUpperCase()}");
+      // log('Headers:');
+      // data.headers.forEach((k, v) => log('$k: $v'));
+      // if (data.params.isNotEmpty) {
+      //   log('Params:');
+      //   data.params.forEach((k, v) => log('$k: $v'));
+      // }
+      // if (data.body != null && data.body.isNotEmpty) {
+      //   log('Body: ${data.body}');
+      // }
+      // log("==> END ${data.method.toString().replaceAll("Method.", "").toUpperCase()}");
     } on Exception catch (e) {
       log(e.toString());
     }
@@ -127,8 +132,8 @@ class LoggingInterceptors extends InterceptorContract {
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     log('<== ${data.statusCode} ${data.url}');
-    log('Body: ${data.body}');
-    log('<== END HTTP');
+    // log('Body: ${data.body}');
+    // log('<== END HTTP');
     return data;
   }
 }

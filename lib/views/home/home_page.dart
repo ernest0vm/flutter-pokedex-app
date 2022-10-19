@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/views/pokedex/pokedex_page.dart';
 
@@ -13,12 +12,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late int _selectedIndex;
-  final HomeController homeController = HomeController();
 
   @override
   void initState() {
     _selectedIndex = 0;
-    homeController.fetchPokemonList();
     super.initState();
   }
 

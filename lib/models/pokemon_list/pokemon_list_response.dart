@@ -3,14 +3,14 @@ import 'package:pokedex/models/pokemon_list/result.dart';
 class PokemonListResponse {
   PokemonListResponse({
     required this.count,
-    required this.next,
-    required this.previous,
+    this.next,
+    this.previous,
     this.results = const <Result>[],
   });
 
   int count;
-  String next;
-  dynamic previous;
+  String? next;
+  String? previous;
   List<Result> results;
 
   factory PokemonListResponse.fromJson(Map<String, dynamic> json) =>

@@ -36,12 +36,12 @@ class PokemonCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: List.generate(
-                      min(pokemon.abilities.length, 2),
+                      min(pokemon.types.length, 2),
                       (index) => Chip(
                         backgroundColor: Colors.white.withOpacity(0.4),
                         padding: const EdgeInsets.all(1),
                         label: Text(
-                          pokemon.abilities[index].ability.name,
+                          pokemon.types[index].type.name,
                           style: const TextStyle(fontSize: 10),
                         ),
                       ),
@@ -51,7 +51,7 @@ class PokemonCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 5,
+              top: 10,
               right: 10,
               child: Text(
                 '#${pokemon.id.toString().padLeft(3, '0')}',

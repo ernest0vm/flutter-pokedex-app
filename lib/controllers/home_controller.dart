@@ -1,17 +1,36 @@
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex/managers/api_manager.dart';
 import 'package:pokedex/managers/stream_manager.dart';
 import 'package:pokedex/models/api_response.dart';
+import 'package:pokedex/models/pagination.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart';
 import 'package:pokedex/models/pokemon_list/pokemon_list_response.dart';
 import 'package:pokedex/models/pokemon_list/result.dart';
 
 class HomeController {
-  Future<bool> fetchPokemonList({int limit = 25, int offset = 0}) async {
-    ApiResponse apiResponse =
-        await ApiManager.instance.getPokemonList(limit, offset);
+  int _itemCount = 0;
+  int get itemCount => _itemCount;
+
+  Future<List<Pokemon>> fetchPokemonList({
+    Pagination? pagination,
+    bool showLoader = false,
+  }) async {
+    late String limit;
+    late String offset;
+    if (pagination != null) {
+      limit = pagination.limit.toString();
+      offset = pagination.offset.toString();
+    }
+    ApiResponse apiResponse = await ApiManager.instance.getPokemonList(
+      limit: limit,
+      offset: offset,
+      showLoader: showLoader,
+    );
     if (apiResponse.hasData) {
       PokemonListResponse pokemonListResponse =
           PokemonListResponse.fromJson(apiResponse.data);
+
+      _itemCount = pokemonListResponse.count;
 
       List<Pokemon> pokemonList = <Pokemon>[];
       for (Result result in pokemonListResponse.results) {
@@ -21,16 +40,20 @@ class HomeController {
         if (pokemon != null) {
           pokemonList.add(pokemon);
         }
-        StreamManager.instance.setPokemonList(pokemonList);
       }
-      return true;
+
+      return pokemonList;
     }
 
-    return false;
+    return <Pokemon>[];
   }
 
-  Future<Pokemon?> fetchPokemon(String pokeId) async {
-    ApiResponse apiResponse = await ApiManager.instance.getPokemon(pokeId);
+  Future<Pokemon?> fetchPokemon(String pokeId,
+      {bool showLoader = false}) async {
+    ApiResponse apiResponse = await ApiManager.instance.getPokemon(
+      pokeId,
+      showLoader: showLoader,
+    );
     if (apiResponse.hasData) {
       Pokemon pokemon = Pokemon.fromJson(apiResponse.data);
       return pokemon;
