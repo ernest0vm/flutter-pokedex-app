@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/styles/app_colors.dart';
+import 'package:pokedex/views/pokedex/pokedex_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,11 +13,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late int _selectedIndex;
+  final HomeController homeController = HomeController();
 
   @override
   void initState() {
     _selectedIndex = 0;
+    homeController.fetchPokemonList();
     super.initState();
+  }
+
+  String get title {
+    switch (_selectedIndex) {
+      case 0:
+        return 'Pokedex';
+      case 1:
+        return 'Favourites';
+      default:
+        return '';
+    }
   }
 
   Color getItemColor() {
@@ -59,6 +74,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: AppColors.searchButtonColor,
+        child: const Icon(Icons.search),
+      ),
       body: Stack(
         children: [
           Positioned(
@@ -78,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: const EdgeInsets.only(left: 20),
                   title: Text(
-                    'Pokedex',
+                    title,
                     style: TextStyle(
                       color: AppColors.blackTextColor,
                       fontSize: 30,
@@ -88,6 +108,7 @@ class _HomePageState extends State<HomePage> {
                   centerTitle: false,
                 ),
               ),
+              if (_selectedIndex == 0) const PokedexPage(),
             ],
           ),
         ],
