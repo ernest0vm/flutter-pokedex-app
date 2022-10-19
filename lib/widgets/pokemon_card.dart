@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/views/pokemon_detail/pokemon_detail_page.dart';
+import 'package:pokedex/widgets/fav_button.dart';
 
 class PokemonCard extends StatelessWidget {
   const PokemonCard({Key? key, required this.pokemon}) : super(key: key);
@@ -87,16 +88,10 @@ class PokemonCard extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 ),
               ),
-              Positioned(
+              const Positioned(
                 bottom: 0,
                 right: 0,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite_outline,
-                    color: Colors.white,
-                  ),
-                ),
+                child: FavButton(),
               ),
             ],
           ),
