@@ -38,7 +38,7 @@ class _PokedexPageState extends State<PokedexPage> {
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
       } else {
-        _pagingController.appendPage(newItems, pageKey);
+        _pagingController.appendPage(newItems, homeController.nextPage);
       }
     });
 

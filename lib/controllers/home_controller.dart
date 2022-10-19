@@ -1,6 +1,4 @@
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex/managers/api_manager.dart';
-import 'package:pokedex/managers/stream_manager.dart';
 import 'package:pokedex/models/api_response.dart';
 import 'package:pokedex/models/pagination.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart';
@@ -9,7 +7,10 @@ import 'package:pokedex/models/pokemon_list/result.dart';
 
 class HomeController {
   int _itemCount = 0;
+  String _nextPage = '';
+
   int get itemCount => _itemCount;
+  String get nextPage => _nextPage;
 
   Future<List<Pokemon>> fetchPokemonList({
     Pagination? pagination,
@@ -31,6 +32,7 @@ class HomeController {
           PokemonListResponse.fromJson(apiResponse.data);
 
       _itemCount = pokemonListResponse.count;
+      _nextPage = pokemonListResponse.next!;
 
       List<Pokemon> pokemonList = <Pokemon>[];
       for (Result result in pokemonListResponse.results) {
