@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                 expandedHeight: 150.0,
                 backgroundColor: Colors.transparent,
                 flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsets.only(left: 20),
+                  titlePadding: const EdgeInsets.only(left: 20, bottom: 20),
                   title: Text(
                     title,
                     style: TextStyle(
