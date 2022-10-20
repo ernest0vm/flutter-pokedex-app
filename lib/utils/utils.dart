@@ -41,4 +41,23 @@ class Utils {
     if (isBlank(s)!) return s;
     return s[0].toUpperCase() + s.substring(1).toLowerCase();
   }
+
+  /// Convert decimeters to centimeters
+  static String dmToCm(int decimeters) => '${decimeters * 10} cm';
+
+  /// Convert decimeters to feets
+  static String dmToFt(int decimeters) =>
+      '${(decimeters / 3.048).toStringAsFixed(2)} ft';
+
+  /// Convert hectograms to pounds
+  static String hgToLb(int hectograms) =>
+      '${(hectograms / 4.536).toStringAsFixed(2)} lb';
+
+  /// Convert hectograms to kilograms
+  static String hgToKg(int hectograms) =>
+      '${(hectograms / 10).toStringAsFixed(2)} kg';
+
+  /// Get gender percent by gender rate
+  static String genterPercent(int rate) =>
+      '${((100 / 8) * rate).toStringAsFixed(1)} %';
 }

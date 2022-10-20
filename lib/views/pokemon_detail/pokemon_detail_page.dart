@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pokeapi/model/pokemon/pokemon-specie.dart';
+import 'package:pokeapi/pokeapi.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
@@ -8,7 +10,7 @@ import 'package:pokedex/views/pokemon_detail/widgets/tab_about.dart';
 import 'package:pokedex/widgets/fav_button.dart';
 import 'package:pokedex/widgets/type_chip.dart';
 
-class PokemonDetailPage extends StatelessWidget {
+class PokemonDetailPage extends StatefulWidget {
   const PokemonDetailPage({
     Key? key,
     required this.pokemon,
@@ -19,12 +21,35 @@ class PokemonDetailPage extends StatelessWidget {
   final LinearGradient backgroundGradient;
 
   @override
+  State<PokemonDetailPage> createState() => _PokemonDetailPageState();
+}
+
+class _PokemonDetailPageState extends State<PokemonDetailPage> {
+  PokemonSpecie? _pokemonSpecie = PokemonSpecie();
+
+  @override
+  void initState() {
+    getPokemonSpecie();
+    super.initState();
+  }
+
+  Future<void> getPokemonSpecie() async {
+    PokemonSpecie? pokemonSpecie =
+        await PokeAPI.getObject<PokemonSpecie>(widget.pokemon.id);
+    if (pokemonSpecie != null) {
+      setState(() {
+        _pokemonSpecie = pokemonSpecie;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) => Scaffold(
         body: Stack(
           children: [
             Positioned.fill(
               child: DecoratedBox(
-                decoration: BoxDecoration(gradient: backgroundGradient),
+                decoration: BoxDecoration(gradient: widget.backgroundGradient),
               ),
             ),
             Positioned(
@@ -58,7 +83,7 @@ class PokemonDetailPage extends StatelessWidget {
                   expandedHeight: 150.0,
                   backgroundColor: Colors.transparent,
                   actions: [
-                    FavButton(pokeId: pokemon.id),
+                    FavButton(pokeId: widget.pokemon.id),
                   ],
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -66,11 +91,11 @@ class PokemonDetailPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: List.generate(
-                          pokemon.types.length,
+                          widget.pokemon.types.length,
                           (index) => Transform.scale(
                             scale: 1.2,
                             child: TypeChip(
-                              type: pokemon.types[index].type,
+                              type: widget.pokemon.types[index].type,
                               padding: const EdgeInsets.only(right: 15),
                             ),
                           ),
@@ -87,7 +112,7 @@ class PokemonDetailPage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              pokemon.name.capitalize!,
+                              widget.pokemon.name.capitalize!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -98,7 +123,7 @@ class PokemonDetailPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '#${pokemon.id.toString().padLeft(3, '0')}',
+                            '#${widget.pokemon.id.toString().padLeft(3, '0')}',
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -154,7 +179,10 @@ class PokemonDetailPage extends StatelessWidget {
                                 Expanded(
                                   child: TabBarView(
                                     children: [
-                                      TabAbout(pokemon: pokemon),
+                                      TabAbout(
+                                        pokemon: widget.pokemon,
+                                        pokemonSpecie: _pokemonSpecie!,
+                                      ),
                                       Container(),
                                       Container(),
                                       Container(),
@@ -179,9 +207,9 @@ class PokemonDetailPage extends StatelessWidget {
                             SizedBox(
                               height: 200.0,
                               child: Hero(
-                                tag: pokemon.name,
+                                tag: widget.pokemon.name,
                                 child: CachedNetworkImage(
-                                  imageUrl: pokemon.image!,
+                                  imageUrl: widget.pokemon.image!,
                                   width: 200,
                                   fit: BoxFit.fitHeight,
                                 ),

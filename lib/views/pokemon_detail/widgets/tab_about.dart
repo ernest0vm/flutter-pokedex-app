@@ -1,36 +1,167 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:pokeapi/model/pokemon/pokemon-specie.dart';
-import 'package:pokeapi/pokeapi.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart';
+import 'package:pokedex/styles/app_colors.dart';
+import 'package:pokedex/utils/extensions.dart';
+import 'package:pokedex/utils/utils.dart';
 
 class TabAbout extends StatelessWidget {
-  const TabAbout({Key? key, required this.pokemon}) : super(key: key);
+  const TabAbout({Key? key, required this.pokemon, required this.pokemonSpecie})
+      : super(key: key);
 
   final Pokemon pokemon;
+  final PokemonSpecie pokemonSpecie;
 
   @override
-  Widget build(BuildContext context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FutureBuilder<PokemonSpecie?>(
-              future: PokeAPI.getObject<PokemonSpecie>(pokemon.id),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  log(snapshot.data!.flavorTextEntries!.first.flavorText!);
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: Text(snapshot
-                            .data!.flavorTextEntries!.first.flavorText!
-                            .replaceAll('\n', '')),
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(pokemonSpecie.flavorTextEntries!.first.flavorText!
+                      .replaceAll('\n', '')),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Material(
+              type: MaterialType.card,
+              elevation: 8,
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                constraints: const BoxConstraints(minHeight: 70),
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Height',
+                            style:
+                                TextStyle(color: AppColors.midBlackTextColor),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                              '${Utils.dmToFt(pokemon.height)} (${Utils.dmToCm(pokemon.height)})'),
+                        ],
                       ),
-                    ],
-                  );
-                }
-                return Container();
-              }),
-        ],
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Weight',
+                            style:
+                                TextStyle(color: AppColors.midBlackTextColor),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                              '${Utils.hgToLb(pokemon.weight)} (${Utils.hgToKg(pokemon.weight)})'),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Breeding',
+              textAlign: TextAlign.start,
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                  'Gender',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(color: AppColors.midBlackTextColor),
+                ),
+                const SizedBox(
+                  width: 50,
+                ),
+                Text(
+                  'Female: ${Utils.genterPercent(pokemonSpecie.genderRate!)} Male: ${Utils.genterPercent(8 - pokemonSpecie.genderRate!)}',
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                  'Egg Groups',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(color: AppColors.midBlackTextColor),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  pokemonSpecie.eggGroups!.first.name!.capitalize!,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                  'Egg Cycle',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(color: AppColors.midBlackTextColor),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  pokemon.baseExperience.toString(),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Location',
+              textAlign: TextAlign.start,
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Training',
+              textAlign: TextAlign.start,
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                  'Base EXP',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(color: AppColors.midBlackTextColor),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  pokemon.baseExperience.toString(),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+          ],
+        ),
       );
 }
