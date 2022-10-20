@@ -98,10 +98,10 @@ class PokemonCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 0,
                   right: 0,
-                  child: FavButton(),
+                  child: FavButton(pokeId: pokemon.id),
                 ),
               ],
             ),

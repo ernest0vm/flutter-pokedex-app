@@ -32,7 +32,9 @@ class PokemonDetailPage extends StatelessWidget {
                 SliverAppBar(
                   expandedHeight: 150.0,
                   backgroundColor: Colors.transparent,
-                  actions: const [FavButton()],
+                  actions: [
+                    FavButton(pokeId: pokemon.id),
+                  ],
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
                     child: Padding(

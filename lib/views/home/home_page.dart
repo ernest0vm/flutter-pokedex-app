@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage>
       case 0:
         return 'Pokedex';
       case 1:
-        return 'Favourites';
+        return 'Favorites';
       default:
         return '';
     }
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage>
           backgroundColor: AppColors.navbarColor,
           selectedItemColor: _selectedIndex == 0
               ? AppColors.tabPokedexColor
-              : AppColors.tabFavouritesColor,
+              : AppColors.tabFavoritesColor,
           unselectedItemColor: AppColors.unselectedItemColor,
           unselectedFontSize: 14,
           elevation: 0,
@@ -98,11 +98,11 @@ class _HomePageState extends State<HomePage>
               ),
             ),
             BottomNavigationBarItem(
-              label: 'Favourites',
+              label: 'Favorites',
               activeIcon: SvgPicture.asset(
                 'assets/icons/heart.svg',
                 height: 24,
-                color: AppColors.tabFavouritesColor,
+                color: AppColors.tabFavoritesColor,
               ),
               icon: SvgPicture.asset(
                 'assets/icons/heart.svg',
