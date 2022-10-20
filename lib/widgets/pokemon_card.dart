@@ -47,10 +47,10 @@ class PokemonCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Text(
                           pokemon.name.capitalize!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withOpacity(0.8),
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -70,9 +70,10 @@ class PokemonCard extends StatelessWidget {
                   right: 10,
                   child: Text(
                     '#${pokemon.id.toString().padLeft(3, '0')}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white.withOpacity(0.4),
                     ),
                   ),
                 ),

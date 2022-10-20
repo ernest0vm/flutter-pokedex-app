@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:pokedex/controllers/home_controller.dart';
-import 'package:pokedex/models/pagination.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart';
 import 'package:pokedex/widgets/loader.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
@@ -23,6 +21,7 @@ class _PokedexPageState extends State<PokedexPage> {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: PagedGridView<String, Pokemon>(
+          padding: EdgeInsets.zero,
           showNewPageProgressIndicatorAsGridChild: false,
           showNewPageErrorIndicatorAsGridChild: false,
           showNoMoreItemsIndicatorAsGridChild: false,
