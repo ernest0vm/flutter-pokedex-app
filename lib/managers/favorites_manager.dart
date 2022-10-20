@@ -18,8 +18,12 @@ class FavoritesManager {
     _box = await Hive.openBox(Constants.hiveFavoritesDB);
   }
 
-  // bool isFavorite(int pokeId, {bool defaultValue = false}) =>
-  //     _box.get(Constants.favoritesListKey, defaultValue: defaultValue);
+  bool isFavorite(int pokeId) {
+    List<int> pokeIdList =
+        _box.get(Constants.favoritesListKey, defaultValue: <int>[]);
+
+    return pokeIdList.contains(pokeId);
+  }
 
   void _setFavoritePokemonList(List<Pokemon> list) {
     _favoritePokemonList.sink.add(list);

@@ -16,8 +16,7 @@ class _FavButtonState extends State<FavButton> {
 
   @override
   void initState() {
-    // _isFavorite = FavoritesManager.instance.isFavorite(widget.pokeId);
-    _isFavorite = false;
+    _isFavorite = FavoritesManager.instance.isFavorite(widget.pokeId);
     super.initState();
   }
 

@@ -116,11 +116,13 @@ class _HomePageState extends State<HomePage>
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: AppColors.searchButtonColor,
-          child: const Icon(Icons.search),
-        ),
+        floatingActionButton: _selectedIndex == 0
+            ? FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: AppColors.searchButtonColor,
+                child: const Icon(Icons.search),
+              )
+            : null,
         body: Stack(
           children: [
             Positioned(
