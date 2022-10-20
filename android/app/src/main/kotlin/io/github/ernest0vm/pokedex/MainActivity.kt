@@ -1,4 +1,4 @@
-package io.github.ernest0vm.pokedex.pokedex
+package io.github.ernest0vm.pokedex
 
 import io.flutter.embedding.android.FlutterActivity
 
