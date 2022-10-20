@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
+import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/views/pokemon_detail/pokemon_detail_page.dart';
 import 'package:pokedex/widgets/fav_button.dart';
+import 'package:pokedex/widgets/type_chip.dart';
 
 class PokemonCard extends StatelessWidget {
   const PokemonCard({Key? key, required this.pokemon}) : super(key: key);
@@ -41,9 +43,9 @@ class PokemonCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Text(
-                          pokemon.name,
+                          pokemon.name.capitalize!,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -56,14 +58,7 @@ class PokemonCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: List.generate(
                           min(pokemon.types.length, 2),
-                          (index) => Chip(
-                            backgroundColor: Colors.white30,
-                            padding: const EdgeInsets.all(1),
-                            label: Text(
-                              pokemon.types[index].type.name,
-                              style: const TextStyle(fontSize: 10),
-                            ),
-                          ),
+                          (index) => TypeChip(type: pokemon.types[index].type),
                         ),
                       )
                     ],

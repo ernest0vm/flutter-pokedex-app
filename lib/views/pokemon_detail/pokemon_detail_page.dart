@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
+import 'package:pokedex/utils/extensions.dart';
+import 'package:pokedex/views/pokemon_detail/widgets/tab_about.dart';
 import 'package:pokedex/widgets/fav_button.dart';
+import 'package:pokedex/widgets/type_chip.dart';
 
 class PokemonDetailPage extends StatelessWidget {
   const PokemonDetailPage({
@@ -36,16 +39,9 @@ class PokemonDetailPage extends StatelessWidget {
                       child: Row(
                         children: List.generate(
                           pokemon.types.length,
-                          (index) => Padding(
+                          (index) => TypeChip(
+                            type: pokemon.types[index].type,
                             padding: const EdgeInsets.all(5),
-                            child: Chip(
-                              backgroundColor: Colors.white30,
-                              padding: const EdgeInsets.all(1),
-                              label: Text(
-                                pokemon.types[index].type.name,
-                                style: const TextStyle(fontSize: 10),
-                              ),
-                            ),
                           ),
                         ),
                       ),
@@ -60,7 +56,7 @@ class PokemonDetailPage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              pokemon.name,
+                              pokemon.name.capitalize!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -123,12 +119,10 @@ class PokemonDetailPage extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                SizedBox(
-                                  height:
-                                      100, //I want to use dynamic height instead of fixed height
+                                Expanded(
                                   child: TabBarView(
                                     children: [
-                                      Container(),
+                                      TabAbout(pokemon: pokemon),
                                       Container(),
                                       Container(),
                                       Container(),
