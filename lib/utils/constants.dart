@@ -6,4 +6,5 @@ class Constants {
         Locale('en'),
       ];
   static String get hiveFavoritesDB => 'favorites';
+  static String get favoritesListKey => 'favoritesList';
 }

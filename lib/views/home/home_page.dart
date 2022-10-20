@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex/controllers/home_controller.dart';
+import 'package:pokedex/managers/favorites_manager.dart';
 import 'package:pokedex/models/pagination.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
+import 'package:pokedex/views/favorites/favorites_page.dart';
 import 'package:pokedex/views/pokedex/pokedex_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +34,8 @@ class _HomePageState extends State<HomePage>
         _selectedIndex = _tabController.index;
       });
     });
+
+    FavoritesManager.instance.getFavoritePokemonList();
 
     _pagingController.addPageRequestListener((pageKey) async {
       Uri nextUri = Uri.parse(pageKey);
@@ -151,7 +155,7 @@ class _HomePageState extends State<HomePage>
                 controller: _tabController,
                 children: [
                   PokedexPage(pagingController: _pagingController),
-                  Container(),
+                  const FavoritesPage(),
                 ],
               ),
             )

@@ -16,7 +16,8 @@ class _FavButtonState extends State<FavButton> {
 
   @override
   void initState() {
-    _isFavorite = FavoritesManager.instance.isFavorite(widget.pokeId);
+    // _isFavorite = FavoritesManager.instance.isFavorite(widget.pokeId);
+    _isFavorite = false;
     super.initState();
   }
 
@@ -28,7 +29,9 @@ class _FavButtonState extends State<FavButton> {
           });
 
           if (_isFavorite) {
-            FavoritesManager.instance.setIsFavorite(widget.pokeId, _isFavorite);
+            FavoritesManager.instance.addFavoritePokemon(widget.pokeId);
+          } else {
+            FavoritesManager.instance.removeFavoritePokemon(widget.pokeId);
           }
         },
         icon: _isFavorite
