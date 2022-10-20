@@ -17,6 +17,7 @@ class FavoritesPage extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GridView.count(
+                  padding: EdgeInsets.zero,
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
