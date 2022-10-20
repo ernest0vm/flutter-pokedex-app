@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
@@ -87,10 +88,13 @@ class PokemonCard extends StatelessWidget {
                 Positioned(
                   bottom: 0,
                   right: 5,
-                  child: Image.network(
-                    pokemon.image!,
-                    width: 110,
-                    fit: BoxFit.fitWidth,
+                  child: Hero(
+                    tag: pokemon.name,
+                    child: CachedNetworkImage(
+                      imageUrl: pokemon.image!,
+                      width: 110,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
                 const Positioned(

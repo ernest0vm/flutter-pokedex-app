@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
@@ -146,9 +147,13 @@ class PokemonDetailPage extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 200.0,
-                              child: Image.network(
-                                pokemon.image!,
-                                fit: BoxFit.fitHeight,
+                              child: Hero(
+                                tag: pokemon.name,
+                                child: CachedNetworkImage(
+                                  imageUrl: pokemon.image!,
+                                  width: 200,
+                                  fit: BoxFit.fitHeight,
+                                ),
                               ),
                             ),
                           ],

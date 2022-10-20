@@ -17,6 +17,7 @@ dependencies:
   http: ^0.13.5
   http_interceptor: ^1.0.2
   pokeapi: ^1.0.3
+  cached_network_image: ^3.2.2
 
   # utils
   cupertino_icons: ^1.0.2
