@@ -38,7 +38,7 @@ class PokemonCard extends StatelessWidget {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.only(left: 15, top: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -72,7 +72,7 @@ class PokemonCard extends StatelessWidget {
                     '#${pokemon.id.toString().padLeft(3, '0')}',
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                       color: Colors.white.withOpacity(0.4),
                     ),
                   ),
@@ -93,7 +93,7 @@ class PokemonCard extends StatelessWidget {
                     tag: pokemon.name,
                     child: CachedNetworkImage(
                       imageUrl: pokemon.image!,
-                      width: 110,
+                      width: 120,
                       fit: BoxFit.fitWidth,
                     ),
                   ),

@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["build", "ipa"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build ipa",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["build", "apk"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build apk",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["build", "appbundle"],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: flutter build appbundle",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["format", "."],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: format",
+      "detail": ""
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "args": ["analyze", "."],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "flutter: analyze",
+      "detail": ""
+    }
+  ]
+}
