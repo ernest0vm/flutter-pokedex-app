@@ -7,52 +7,26 @@ import 'package:pokedex/widgets/loader.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
 
 class PokedexPage extends StatefulWidget {
-  const PokedexPage({Key? key}) : super(key: key);
+  const PokedexPage({
+    Key? key,
+    required this.pagingController,
+  }) : super(key: key);
+
+  final PagingController<String, Pokemon> pagingController;
 
   @override
   State<PokedexPage> createState() => _PokedexPageState();
 }
 
 class _PokedexPageState extends State<PokedexPage> {
-  final PagingController<String, Pokemon> _pagingController =
-      PagingController(firstPageKey: '');
-  final HomeController homeController = HomeController();
-
   @override
-  void initState() {
-    _pagingController.addPageRequestListener((pageKey) async {
-      Uri nextUri = Uri.parse(pageKey);
-      List<Pokemon> pokemonList = await homeController.fetchPokemonList(
-          pagination: Pagination(
-        offset: int.parse(nextUri.queryParameters['offset'] ?? '0'),
-        limit: int.parse(nextUri.queryParameters['limit'] ?? '25'),
-      ));
-
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
-
-      final isLastPage =
-          previouslyFetchedItemsCount >= homeController.itemCount;
-      final newItems = pokemonList;
-
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        _pagingController.appendPage(newItems, homeController.nextPage);
-      }
-    });
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) => SliverPadding(
-        padding: const EdgeInsets.all(10),
-        sliver: PagedSliverGrid<String, Pokemon>(
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: PagedGridView<String, Pokemon>(
           showNewPageProgressIndicatorAsGridChild: false,
           showNewPageErrorIndicatorAsGridChild: false,
           showNoMoreItemsIndicatorAsGridChild: false,
-          pagingController: _pagingController,
+          pagingController: widget.pagingController,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 4 / 3,
             crossAxisSpacing: 10,
@@ -79,10 +53,4 @@ class _PokedexPageState extends State<PokedexPage> {
           ),
         ),
       );
-
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
 }
