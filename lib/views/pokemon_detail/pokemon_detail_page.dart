@@ -27,6 +27,31 @@ class PokemonDetailPage extends StatelessWidget {
                 decoration: BoxDecoration(gradient: backgroundGradient),
               ),
             ),
+            Positioned(
+              top: 10,
+              right: 100,
+              child: SvgPicture.asset('assets/icons/dots.svg'),
+            ),
+            Positioned(
+              top: -40,
+              left: -50,
+              child: Transform.rotate(
+                angle: 75,
+                child: Container(
+                  constraints:
+                      const BoxConstraints(minHeight: 150, minWidth: 150),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0, 1],
+                      colors: [Colors.white38, Colors.white10],
+                    ),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                ),
+              ),
+            ),
             CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -38,20 +63,23 @@ class PokemonDetailPage extends StatelessWidget {
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: List.generate(
                           pokemon.types.length,
-                          (index) => TypeChip(
-                            type: pokemon.types[index].type,
-                            padding: const EdgeInsets.all(5),
+                          (index) => Transform.scale(
+                            scale: 1.2,
+                            child: TypeChip(
+                              type: pokemon.types[index].type,
+                              padding: const EdgeInsets.only(right: 15),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                   flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: const EdgeInsets.only(left: 20, bottom: 45),
+                    titlePadding: const EdgeInsets.only(left: 10, bottom: 30),
                     title: Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Row(
@@ -73,6 +101,7 @@ class PokemonDetailPage extends StatelessWidget {
                             '#${pokemon.id.toString().padLeft(3, '0')}',
                             style: const TextStyle(
                               fontSize: 14,
+                              fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
                           ),
