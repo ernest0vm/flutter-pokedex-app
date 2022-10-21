@@ -1,0 +1,7 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/logo-pokedex.png
+  ios_content_mode: scaleAspectFit
+  android_gravity: fill
+
+  web: false
