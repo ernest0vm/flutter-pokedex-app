@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static Color get tabPokedexColor => const Color(0xffFFCE4B);
-  static Color get tabFavoritesColor => const Color(0xffFF5B5B);
+  static Color get tabPokedexColor => const Color(0xFFFFCE4B);
+  static Color get tabFavoritesColor => const Color(0xFFFF5B5B);
+  static Color get tabIndicatorColor => const Color(0xFF6C79DB);
+  static Color get maleIconColor => const Color(0xFF6C79DB);
+  static Color get femaleIconColor => const Color(0xFFF0729F);
   static Color get unselectedItemColor => const Color(0xFFD7D7D7);
   static Color get navbarColor => const Color(0xFFF4F4F4);
   static Color get blackTextColor => const Color(0xFF303943);

@@ -129,8 +129,11 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                         bottom: 0,
                         child: Container(
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
                             color: Colors.white,
                           ),
                           child: DefaultTabController(
@@ -140,6 +143,8 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                               children: <Widget>[
                                 TabBar(
                                   labelColor: AppColors.blackTextColor,
+                                  indicatorColor: AppColors.tabIndicatorColor,
+                                  indicatorWeight: 3,
                                   unselectedLabelColor:
                                       AppColors.unselectedItemColor,
                                   padding: const EdgeInsets.only(
