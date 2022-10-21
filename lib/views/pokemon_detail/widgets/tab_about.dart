@@ -151,12 +151,12 @@ class TabAbout extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Location',
-                textAlign: TextAlign.start,
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 20),
+              // const Text(
+              //   'Location',
+              //   textAlign: TextAlign.start,
+              //   style: TextStyle(fontWeight: FontWeight.w700),
+              // ),
+              // const SizedBox(height: 20),
               const Text(
                 'Training',
                 textAlign: TextAlign.start,
