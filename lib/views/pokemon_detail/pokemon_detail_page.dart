@@ -8,6 +8,7 @@ import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/tab_about.dart';
 import 'package:pokedex/widgets/fav_button.dart';
+import 'package:pokedex/widgets/loader.dart';
 import 'package:pokedex/widgets/type_chip.dart';
 
 class PokemonDetailPage extends StatefulWidget {
@@ -25,24 +26,6 @@ class PokemonDetailPage extends StatefulWidget {
 }
 
 class _PokemonDetailPageState extends State<PokemonDetailPage> {
-  PokemonSpecie? _pokemonSpecie = PokemonSpecie();
-
-  @override
-  void initState() {
-    getPokemonSpecie();
-    super.initState();
-  }
-
-  Future<void> getPokemonSpecie() async {
-    PokemonSpecie? pokemonSpecie =
-        await PokeAPI.getObject<PokemonSpecie>(widget.pokemon.id);
-    if (pokemonSpecie != null) {
-      setState(() {
-        _pokemonSpecie = pokemonSpecie;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Stack(
@@ -179,10 +162,22 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                 Expanded(
                                   child: TabBarView(
                                     children: [
-                                      TabAbout(
-                                        pokemon: widget.pokemon,
-                                        pokemonSpecie: _pokemonSpecie!,
-                                      ),
+                                      FutureBuilder(
+                                          future:
+                                              PokeAPI.getObject<PokemonSpecie>(
+                                                  widget.pokemon.id),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                              return TabAbout(
+                                                pokemon: widget.pokemon,
+                                                pokemonSpecie: snapshot.data!,
+                                              );
+                                            }
+
+                                            return const Center(
+                                              child: Loader(size: 80),
+                                            );
+                                          }),
                                       Container(),
                                       Container(),
                                       Container(),

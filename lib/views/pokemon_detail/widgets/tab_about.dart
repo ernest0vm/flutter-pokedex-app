@@ -124,7 +124,7 @@ class TabAbout extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        pokemon.baseExperience.toString(),
+                        pokemonSpecie.eggGroups!.last.name!.capitalize!,
                         textAlign: TextAlign.start,
                         style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
