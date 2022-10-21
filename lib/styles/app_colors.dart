@@ -11,6 +11,9 @@ class AppColors {
   static Color get blackTextColor => const Color(0xFF303943);
   static Color get midBlackTextColor => blackTextColor.withOpacity(0.6);
   static Color get searchButtonColor => const Color(0xFF6C79DB);
+  static Color get lowStatColor => const Color(0xFFFB6C6C);
+  static Color get highStatColor => const Color(0xFF4BC07A);
+  static Color get noStatColor => const Color(0xFFF4F5F4);
 
   static Map<String, LinearGradient> get colorByPokemonType => {
         'normal': const LinearGradient(

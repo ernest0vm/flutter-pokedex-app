@@ -7,6 +7,7 @@ import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/tab_about.dart';
+import 'package:pokedex/views/pokemon_detail/widgets/tab_stats.dart';
 import 'package:pokedex/widgets/fav_button.dart';
 import 'package:pokedex/widgets/loader.dart';
 import 'package:pokedex/widgets/type_chip.dart';
@@ -183,7 +184,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                               child: Loader(size: 80),
                                             );
                                           }),
-                                      Container(),
+                                      TabStats(pokemon: widget.pokemon),
                                       Container(),
                                       Container(),
                                     ],
