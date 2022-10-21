@@ -14,6 +14,7 @@ class AppColors {
   static Color get lowStatColor => const Color(0xFFFB6C6C);
   static Color get highStatColor => const Color(0xFF4BC07A);
   static Color get noStatColor => const Color(0xFFF4F5F4);
+  static Color get dividerColor => const Color(0xFFF4F5F4);
 
   static Map<String, LinearGradient> get colorByPokemonType => {
         'normal': const LinearGradient(

@@ -11,7 +11,7 @@ Future<void> main() async {
 
   /// Environment Config
   Environment.instance.setEnvironment(
-    apiBaseUrl: 'https://pokeapi.co/api/',
+    apiBaseUrl: 'https://pokeapi.co/api',
     apiVersion: 'v2',
   );
 

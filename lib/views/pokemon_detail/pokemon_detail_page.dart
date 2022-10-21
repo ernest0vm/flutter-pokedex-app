@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pokeapi/model/evolution/evolution-chain.dart';
 import 'package:pokeapi/model/pokemon/pokemon-specie.dart';
 import 'package:pokeapi/pokeapi.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/tab_about.dart';
+import 'package:pokedex/views/pokemon_detail/widgets/tab_evolution.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/tab_stats.dart';
 import 'package:pokedex/widgets/fav_button.dart';
 import 'package:pokedex/widgets/loader.dart';
@@ -166,29 +168,48 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                   ],
                                 ),
                                 Expanded(
-                                  child: TabBarView(
-                                    children: [
-                                      FutureBuilder(
-                                          future:
-                                              PokeAPI.getObject<PokemonSpecie>(
-                                                  widget.pokemon.id),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.hasData) {
-                                              return TabAbout(
+                                  child: FutureBuilder<PokemonSpecie?>(
+                                      future: PokeAPI.getObject<PokemonSpecie>(
+                                          widget.pokemon.id),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          List<String> url = snapshot
+                                              .data!.evolutionChain!.url!
+                                              .split('/');
+                                          String evolutionId =
+                                              url.elementAt(url.length - 2);
+                                          return TabBarView(
+                                            children: [
+                                              TabAbout(
                                                 pokemon: widget.pokemon,
                                                 pokemonSpecie: snapshot.data!,
-                                              );
-                                            }
+                                              ),
+                                              TabStats(pokemon: widget.pokemon),
+                                              FutureBuilder(
+                                                  future: PokeAPI.getObject<
+                                                      EvolutionChain>(
+                                                    int.parse(evolutionId),
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.hasData) {
+                                                      return TabEvolution(
+                                                        evolutionChain:
+                                                            snapshot.data!,
+                                                      );
+                                                    }
 
-                                            return const Center(
-                                              child: Loader(size: 80),
-                                            );
-                                          }),
-                                      TabStats(pokemon: widget.pokemon),
-                                      Container(),
-                                      Container(),
-                                    ],
-                                  ),
+                                                    return const Center(
+                                                      child: Loader(size: 80),
+                                                    );
+                                                  }),
+                                              Container(),
+                                            ],
+                                          );
+                                        }
+                                        return const Center(
+                                          child: Loader(size: 80),
+                                        );
+                                      }),
                                 )
                               ],
                             ),

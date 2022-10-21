@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
-import 'package:pokedex/styles/app_colors.dart';
-import 'package:pokedex/utils/extensions.dart';
-import 'package:pokedex/utils/utils.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/stat_tile.dart';
 
 class TabStats extends StatelessWidget {
