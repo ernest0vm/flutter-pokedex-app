@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -26,6 +28,7 @@ class _HomePageState extends State<HomePage>
       PagingController(firstPageKey: '');
   late TabController _tabController;
   late int _selectedIndex;
+  bool _hasSearchActive = false;
 
   @override
   void initState() {
@@ -40,28 +43,28 @@ class _HomePageState extends State<HomePage>
 
     FavoritesManager.instance.getFavoritePokemonList();
 
-    _pagingController.addPageRequestListener((pageKey) async {
-      Uri nextUri = Uri.parse(pageKey);
-      List<Pokemon> pokemonList = await homeController.fetchPokemonList(
-          pagination: Pagination(
-        offset: int.parse(nextUri.queryParameters['offset'] ?? '0'),
-        limit: int.parse(nextUri.queryParameters['limit'] ?? '25'),
-      ));
-
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
-
-      final isLastPage =
-          previouslyFetchedItemsCount >= homeController.itemCount;
-      final newItems = pokemonList;
-
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        _pagingController.appendPage(newItems, homeController.nextPage);
-      }
-    });
+    _pagingController.addPageRequestListener(requestPokemons);
     super.initState();
+  }
+
+  Future<void> requestPokemons(pageKey) async {
+    Uri nextUri = Uri.parse(pageKey);
+    List<Pokemon> pokemonList = await homeController.fetchPokemonList(
+        pagination: Pagination(
+      offset: int.parse(nextUri.queryParameters['offset'] ?? '0'),
+      limit: int.parse(nextUri.queryParameters['limit'] ?? '25'),
+    ));
+
+    final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
+
+    final isLastPage = previouslyFetchedItemsCount >= homeController.itemCount;
+    final newItems = pokemonList;
+
+    if (isLastPage) {
+      _pagingController.appendLastPage(newItems);
+    } else {
+      _pagingController.appendPage(newItems, homeController.nextPage);
+    }
   }
 
   String get title {
@@ -104,6 +107,30 @@ class _HomePageState extends State<HomePage>
         break;
     }
     Navigator.of(context).pop();
+  }
+
+  void searchPokemon(String value) async {
+    int? id = int.tryParse(value);
+
+    if (id != null) {
+      Pokemon? pokemon = await homeController.fetchPokemon(id.toString());
+      if (pokemon != null) {
+        setState(() {
+          _pagingController.value = PagingState(itemList: [pokemon]);
+        });
+      }
+    } else {
+      try {
+        Pokemon pokemon = _pagingController.itemList!
+            .firstWhere((element) => element.name.contains(value));
+
+        setState(() {
+          _pagingController.value = PagingState(itemList: [pokemon]);
+        });
+      } catch (e) {
+        // no pokemon finded
+      }
+    }
   }
 
   @override
@@ -194,16 +221,33 @@ class _HomePageState extends State<HomePage>
         ),
         floatingActionButton: _selectedIndex == 0
             ? FloatingActionButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    builder: (context) => const SearchModal(),
-                  );
+                onPressed: () async {
+                  setState(() {
+                    _hasSearchActive = !_hasSearchActive;
+                  });
+
+                  if (_hasSearchActive) {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (context) => SearchModal(
+                        onChange: (value) {
+                          log(value);
+                          searchPokemon(value);
+                        },
+                      ),
+                    );
+                  } else {
+                    _pagingController.refresh();
+                  }
                 },
-                backgroundColor: AppColors.searchButtonColor,
-                child: const Icon(Icons.search),
+                backgroundColor: _hasSearchActive
+                    ? AppColors.femaleIconColor
+                    : AppColors.searchButtonColor,
+                child: _hasSearchActive
+                    ? const Icon(Icons.close)
+                    : const Icon(Icons.search),
               )
             : null,
         body: Stack(
