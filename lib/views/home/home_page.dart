@@ -121,11 +121,12 @@ class _HomePageState extends State<HomePage>
       }
     } else {
       try {
-        Pokemon pokemon = _pagingController.itemList!
-            .firstWhere((element) => element.name.contains(value));
+        List<Pokemon> pokemon = _pagingController.itemList!
+            .where((element) => element.name.contains(value))
+            .toList();
 
         setState(() {
-          _pagingController.value = PagingState(itemList: [pokemon]);
+          _pagingController.value = PagingState(itemList: pokemon);
         });
       } catch (e) {
         // no pokemon finded
