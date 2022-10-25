@@ -14,7 +14,6 @@ class Pokemon {
     required this.order,
     required this.pastTypes,
     required this.species,
-    required this.sprites,
     required this.stats,
     required this.types,
     required this.weight,
@@ -34,7 +33,6 @@ class Pokemon {
   late final int order;
   late final List<dynamic> pastTypes;
   late final Species species;
-  late final Sprites sprites;
   late final List<Stats> stats;
   late final List<Types> types;
   late final int weight;
@@ -58,7 +56,6 @@ class Pokemon {
     order = json['order'];
     pastTypes = List.castFrom<dynamic, dynamic>(json['past_types']);
     species = Species.fromJson(json['species']);
-    sprites = Sprites.fromJson(json['sprites']);
     stats = List.from(json['stats']).map((e) => Stats.fromJson(e)).toList();
     types = List.from(json['types']).map((e) => Types.fromJson(e)).toList();
     weight = json['weight'];
@@ -82,7 +79,6 @@ class Pokemon {
     data['order'] = order;
     data['past_types'] = pastTypes;
     data['species'] = species.toJson();
-    data['sprites'] = sprites.toJson();
     data['stats'] = stats.map((e) => e.toJson()).toList();
     data['types'] = types.map((e) => e.toJson()).toList();
     data['weight'] = weight;
@@ -328,101 +324,6 @@ class Species {
     final data = <String, dynamic>{};
     data['name'] = name;
     data['url'] = url;
-    return data;
-  }
-}
-
-class Sprites {
-  Sprites({
-    required this.backDefault,
-    this.backFemale,
-    required this.backShiny,
-    this.backShinyFemale,
-    required this.frontDefault,
-    this.frontFemale,
-    required this.frontShiny,
-    this.frontShinyFemale,
-    required this.other,
-  });
-  late final String backDefault;
-  late final dynamic backFemale;
-  late final String backShiny;
-  late final dynamic backShinyFemale;
-  late final String frontDefault;
-  late final dynamic frontFemale;
-  late final String frontShiny;
-  late final dynamic frontShinyFemale;
-  late final Other other;
-
-  Sprites.fromJson(Map<String, dynamic> json) {
-    backDefault = json['back_default'];
-    backFemale = null;
-    backShiny = json['back_shiny'];
-    backShinyFemale = null;
-    frontDefault = json['front_default'];
-    frontFemale = null;
-    frontShiny = json['front_shiny'];
-    frontShinyFemale = null;
-    other = Other.fromJson(json['other']);
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['back_default'] = backDefault;
-    data['back_female'] = backFemale;
-    data['back_shiny'] = backShiny;
-    data['back_shiny_female'] = backShinyFemale;
-    data['front_default'] = frontDefault;
-    data['front_female'] = frontFemale;
-    data['front_shiny'] = frontShiny;
-    data['front_shiny_female'] = frontShinyFemale;
-    data['other'] = other.toJson();
-    return data;
-  }
-}
-
-class Other {
-  Other({
-    required this.dreamWorld,
-    required this.home,
-    required this.officialartwork,
-  });
-  late final DreamWorld dreamWorld;
-  late final Home home;
-  late final Officialartwork officialartwork;
-
-  Other.fromJson(Map<String, dynamic> json) {
-    dreamWorld = DreamWorld.fromJson(json['dream_world']);
-    home = Home.fromJson(json['home']);
-    officialartwork = Officialartwork.fromJson(json['official-artwork']);
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['dream_world'] = dreamWorld.toJson();
-    data['home'] = home.toJson();
-    data['official-artwork'] = officialartwork.toJson();
-    return data;
-  }
-}
-
-class DreamWorld {
-  DreamWorld({
-    required this.frontDefault,
-    this.frontFemale,
-  });
-  late final String frontDefault;
-  late final dynamic frontFemale;
-
-  DreamWorld.fromJson(Map<String, dynamic> json) {
-    frontDefault = json['front_default'];
-    frontFemale = null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['front_default'] = frontDefault;
-    data['front_female'] = frontFemale;
     return data;
   }
 }

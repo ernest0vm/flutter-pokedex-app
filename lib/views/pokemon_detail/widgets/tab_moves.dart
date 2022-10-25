@@ -66,7 +66,7 @@ class TabMoves extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ListView.builder(
-                itemCount: pokemon.stats.length,
+                itemCount: pokemon.moves.length,
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
