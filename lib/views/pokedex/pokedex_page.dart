@@ -5,6 +5,7 @@ import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/views/pokedex/widgets/end_drawer.dart';
 import 'package:pokedex/views/pokedex/widgets/search_button.dart';
 import 'package:pokedex/widgets/custom_sliver_appbar.dart';
+import 'package:pokedex/widgets/empty_pokemon_list.dart';
 import 'package:pokedex/widgets/loader.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
 
@@ -77,6 +78,12 @@ class _PokedexPageState extends State<PokedexPage> {
                   padding: EdgeInsets.all(20),
                   child: Loader(
                     size: 30,
+                  ),
+                ),
+                noItemsFoundIndicatorBuilder: (context) => const Center(
+                  child: EmptyPokemonList(
+                    size: Size(250, 250),
+                    message: 'No pokemon here!',
                   ),
                 ),
               ),
