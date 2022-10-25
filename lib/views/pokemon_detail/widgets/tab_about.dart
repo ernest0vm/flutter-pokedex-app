@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokeapi/model/pokemon/pokemon-specie.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/utils/utils.dart';
@@ -49,7 +49,7 @@ class TabAbout extends StatelessWidget {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                                '${Utils.dmToFt(pokemon.height)} (${Utils.dmToCm(pokemon.height)})'),
+                                '${Utils.dmToFt(pokemon.height!)} (${Utils.dmToCm(pokemon.height!)})'),
                           ],
                         ),
                       ),
@@ -64,7 +64,7 @@ class TabAbout extends StatelessWidget {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                                '${Utils.hgToLb(pokemon.weight)} (${Utils.hgToKg(pokemon.weight)})'),
+                                '${Utils.hgToLb(pokemon.weight!)} (${Utils.hgToKg(pokemon.weight!)})'),
                           ],
                         ),
                       )

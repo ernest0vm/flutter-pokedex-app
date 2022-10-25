@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/views/pokemon_detail/pokemon_detail_page.dart';
@@ -21,8 +21,8 @@ class PokemonCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PokemonDetailPage(
               pokemon: pokemon,
-              backgroundGradient:
-                  AppColors.colorByPokemonType[pokemon.types.first.type.name]!,
+              backgroundGradient: AppColors
+                  .colorByPokemonType[pokemon.types!.first.type!.name]!,
             ),
           ),
         ),
@@ -33,7 +33,7 @@ class PokemonCard extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
               gradient:
-                  AppColors.colorByPokemonType[pokemon.types.first.type.name],
+                  AppColors.colorByPokemonType[pokemon.types!.first.type!.name],
             ),
             child: Stack(
               children: [
@@ -46,7 +46,7 @@ class PokemonCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Text(
-                          pokemon.name.capitalize!,
+                          pokemon.name!.capitalize!,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -58,8 +58,9 @@ class PokemonCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: List.generate(
-                          min(pokemon.types.length, 2),
-                          (index) => TypeChip(type: pokemon.types[index].type),
+                          min(pokemon.types!.length, 2),
+                          (index) => TypeChip(
+                              typeName: pokemon.types![index].type!.name!),
                         ),
                       )
                     ],
@@ -90,9 +91,9 @@ class PokemonCard extends StatelessWidget {
                   bottom: 0,
                   right: 5,
                   child: Hero(
-                    tag: pokemon.name,
+                    tag: pokemon.name!,
                     child: CachedNetworkImage(
-                      imageUrl: pokemon.image!,
+                      imageUrl: pokemon.getImageUrl,
                       width: 120,
                       fit: BoxFit.fitWidth,
                     ),
@@ -101,7 +102,7 @@ class PokemonCard extends StatelessWidget {
                 Positioned(
                   bottom: 0,
                   right: 0,
-                  child: FavButton(pokeId: pokemon.id),
+                  child: FavButton(pokeId: pokemon.id!),
                 ),
               ],
             ),

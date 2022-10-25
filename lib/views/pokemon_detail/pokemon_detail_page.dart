@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pokeapi/model/evolution/evolution-chain.dart';
 import 'package:pokeapi/model/pokemon/pokemon-specie.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokeapi/pokeapi.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/tab_about.dart';
@@ -70,7 +70,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                   expandedHeight: 150.0,
                   backgroundColor: Colors.transparent,
                   actions: [
-                    FavButton(pokeId: widget.pokemon.id),
+                    FavButton(pokeId: widget.pokemon.id!),
                   ],
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -78,11 +78,12 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: List.generate(
-                          widget.pokemon.types.length,
+                          widget.pokemon.types!.length,
                           (index) => Transform.scale(
                             scale: 1.2,
                             child: TypeChip(
-                              type: widget.pokemon.types[index].type,
+                              typeName:
+                                  widget.pokemon.types![index].type!.name!,
                               padding: const EdgeInsets.only(right: 15),
                             ),
                           ),
@@ -99,7 +100,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                         children: [
                           Expanded(
                             child: Text(
-                              widget.pokemon.name.capitalize!,
+                              widget.pokemon.name!.capitalize!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -171,7 +172,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                                 Expanded(
                                   child: FutureBuilder<PokemonSpecie?>(
                                       future: PokeAPI.getObject<PokemonSpecie>(
-                                          widget.pokemon.id),
+                                          widget.pokemon.id!),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
                                           List<String> url = snapshot
@@ -230,9 +231,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                             SizedBox(
                               height: 200.0,
                               child: Hero(
-                                tag: widget.pokemon.name,
+                                tag: widget.pokemon.name!,
                                 child: CachedNetworkImage(
-                                  imageUrl: widget.pokemon.image!,
+                                  imageUrl: widget.pokemon.getImageUrl,
                                   width: 200,
                                   fit: BoxFit.fitHeight,
                                 ),

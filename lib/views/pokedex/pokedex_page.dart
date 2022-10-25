@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/views/pokedex/widgets/end_drawer.dart';
 import 'package:pokedex/views/pokedex/widgets/search_button.dart';

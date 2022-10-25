@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/utils/extensions.dart';
 
@@ -66,7 +66,7 @@ class TabMoves extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ListView.builder(
-                itemCount: pokemon.moves.length,
+                itemCount: pokemon.moves?.length,
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -78,7 +78,7 @@ class TabMoves extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: 120,
-                            child: Text(pokemon.moves[index].move.name
+                            child: Text(pokemon.moves![index].move!.name
                                 .toString()
                                 .replaceAll('-', ' ')
                                 .capitalize!),
@@ -90,7 +90,7 @@ class TabMoves extends StatelessWidget {
                           SizedBox(
                             width: 120,
                             child: Text(
-                              pokemon.moves[index].versionGroupDetails.first
+                              pokemon.moves![index].versionGroupDetails!.first
                                   .levelLearnedAt
                                   .toString(),
                               textAlign: TextAlign.center,
@@ -104,8 +104,8 @@ class TabMoves extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              pokemon.moves[index].versionGroupDetails.first
-                                  .moveLearnMethod.name
+                              pokemon.moves![index].versionGroupDetails!.first
+                                  .moveLearnMethod!.name!
                                   .replaceAll('-', ' ')
                                   .capitalize!,
                             ),

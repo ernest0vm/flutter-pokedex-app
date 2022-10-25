@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart';
 import 'package:pokedex/utils/extensions.dart';
 
 class TypeChip extends StatelessWidget {
   const TypeChip(
       {Key? key,
-      required this.type,
+      required this.typeName,
       this.padding = const EdgeInsets.symmetric(vertical: 5)})
       : super(key: key);
 
-  final Type type;
+  final String typeName;
   final EdgeInsets padding;
 
   @override
@@ -27,7 +26,7 @@ class TypeChip extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                type.name.capitalize!,
+                typeName.capitalize!,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 10,

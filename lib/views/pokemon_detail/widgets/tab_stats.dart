@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/views/pokemon_detail/widgets/stat_tile.dart';
 
 class TabStats extends StatelessWidget {
@@ -9,8 +9,8 @@ class TabStats extends StatelessWidget {
 
   int getTotalBaseStat() {
     int total = 0;
-    for (Stats stats in pokemon.stats) {
-      total += stats.baseStat;
+    for (Stats stats in pokemon.stats!) {
+      total += stats.baseStat!;
     }
     return total;
   }
@@ -24,21 +24,21 @@ class TabStats extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListView.builder(
-                itemCount: pokemon.stats.length,
+                itemCount: pokemon.stats!.length,
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => StatTile(
-                  stat: pokemon.stats[index].stat,
-                  baseStat: pokemon.stats[index].baseStat,
+                  statName: pokemon.stats![index].stat!.name!,
+                  baseStat: pokemon.stats![index].baseStat!,
                 ),
               ),
               StatTile(
-                stat: Stat(name: 'Total', url: ''),
+                statName: 'Total',
                 baseStat: getTotalBaseStat(),
-                maxProgressBarValue: pokemon.stats.length * 100,
+                maxProgressBarValue: pokemon.stats!.length * 100,
                 changeColorValue:
-                    (((pokemon.stats.length * 100) / 5) * 4).round(),
+                    (((pokemon.stats!.length * 100) / 5) * 4).round(),
               )
             ],
           ),

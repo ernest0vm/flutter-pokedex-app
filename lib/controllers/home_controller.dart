@@ -1,7 +1,7 @@
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/managers/api_manager.dart';
 import 'package:pokedex/models/api_response.dart';
 import 'package:pokedex/models/pagination.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart';
 import 'package:pokedex/models/pokemon_list/pokemon_list_response.dart';
 import 'package:pokedex/models/pokemon_list/result.dart';
 

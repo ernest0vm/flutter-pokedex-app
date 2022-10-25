@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/managers/favorites_manager.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart';
 import 'package:pokedex/widgets/custom_sliver_appbar.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
 

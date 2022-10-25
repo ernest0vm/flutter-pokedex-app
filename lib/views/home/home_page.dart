@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/controllers/home_controller.dart';
 import 'package:pokedex/managers/favorites_manager.dart';
 import 'package:pokedex/models/pagination.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart' hide Icons;
 import 'package:pokedex/utils/enums.dart';
 import 'package:pokedex/views/favorites/favorites_page.dart';
 import 'package:pokedex/views/home/widgets/bottom_navbar.dart';
@@ -54,25 +54,25 @@ class _HomePageState extends State<HomePage> {
     List<Pokemon>? list = _pagingController.itemList!;
     switch (type) {
       case SortType.id:
-        list.sort((a, b) => a.id.compareTo(b.id));
+        list.sort((a, b) => a.id!.compareTo(b.id!));
         setState(() {
           _pagingController.value = PagingState(itemList: list);
         });
         break;
       case SortType.name:
-        list.sort((a, b) => a.name.compareTo(b.name));
+        list.sort((a, b) => a.name!.compareTo(b.name!));
         setState(() {
           _pagingController.value = PagingState(itemList: list);
         });
         break;
       case SortType.height:
-        list.sort((a, b) => a.height.compareTo(b.height));
+        list.sort((a, b) => a.height!.compareTo(b.height!));
         setState(() {
           _pagingController.value = PagingState(itemList: list);
         });
         break;
       case SortType.weight:
-        list.sort((a, b) => a.weight.compareTo(b.weight));
+        list.sort((a, b) => a.weight!.compareTo(b.weight!));
         setState(() {
           _pagingController.value = PagingState(itemList: list);
         });
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       try {
         List<Pokemon> pokemon = _pagingController.itemList!
-            .where((element) => element.name.contains(value))
+            .where((element) => element.name!.contains(value))
             .toList();
 
         setState(() {

@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokedex/controllers/home_controller.dart';
-import 'package:pokedex/models/pokemon/pokemon.dart';
 import 'package:pokedex/utils/constants.dart';
 import 'package:rxdart/rxdart.dart';
 
