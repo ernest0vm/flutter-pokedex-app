@@ -82,7 +82,7 @@ class HomeController {
     }
 
     final previouslyFetchedItemsCount =
-        StreamManager.instance.pokemonList.length;
+        SessionManager.instance.pagingController.itemList!.length;
 
     final isLastPage =
         previouslyFetchedItemsCount >= SessionManager.instance.itemCount;
