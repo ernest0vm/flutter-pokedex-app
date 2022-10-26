@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokeapi/model/pokemon/pokemon.dart';
+import 'package:pokedex/controllers/home_controller.dart';
+import 'package:pokedex/managers/session_manager.dart';
 import 'package:pokedex/styles/app_colors.dart';
 import 'package:pokedex/views/pokedex/widgets/end_drawer.dart';
 import 'package:pokedex/views/pokedex/widgets/search_button.dart';
@@ -12,16 +14,22 @@ import 'package:pokedex/widgets/pokemon_card.dart';
 class PokedexPage extends StatefulWidget {
   const PokedexPage({
     Key? key,
-    required this.pagingController,
   }) : super(key: key);
-
-  final PagingController<String, Pokemon> pagingController;
 
   @override
   State<PokedexPage> createState() => _PokedexPageState();
 }
 
 class _PokedexPageState extends State<PokedexPage> {
+  final HomeController homeController = HomeController();
+
+  @override
+  void initState() {
+    SessionManager.instance.pagingController
+        .addPageRequestListener(homeController.requestMorePokemons);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.transparent,
@@ -55,7 +63,7 @@ class _PokedexPageState extends State<PokedexPage> {
               showNewPageProgressIndicatorAsGridChild: false,
               showNewPageErrorIndicatorAsGridChild: false,
               showNoMoreItemsIndicatorAsGridChild: false,
-              pagingController: widget.pagingController,
+              pagingController: SessionManager.instance.pagingController,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 4 / 3,
                 crossAxisSpacing: 10,
